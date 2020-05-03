@@ -17,7 +17,7 @@ import { store } from '../src/store/store';
 const App = () => {
     return (
         <Router>
-            <Layout id="app">
+            <Layout id="app" >
                 <Affix offsetTop={0} className="app__affix-header">
                     <AppHeader />
                 </Affix>

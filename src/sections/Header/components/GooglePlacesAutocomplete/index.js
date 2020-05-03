@@ -3,39 +3,17 @@ import PlacesAutocomplete, {
     geocodeByAddress,
     getLatLng,
 } from 'react-places-autocomplete';
-import { useHttp } from '../../../../lib';
+import { getDefaultUsersWeatherByIp } from '../../../../store/actions';
+
 import { EnvironmentOutlined } from '@ant-design/icons';
 import { Input } from 'antd';
+import { useDispatch } from 'react-redux';
 
 const { Search } = Input;
 
 export const GooglePlacesAutocomplete = () => {
+    const dispatch = useDispatch();
     const [address, setAddress] = useState('');
-    const [data, setData] = useState(null);
-    const [coordinates, setCoordinates] = useState({
-        lat: null,
-        lng: null,
-    });
-    // const { response } = useHttp('http://ip-api.com/json');
-    //
-    // if (response) {
-    //     const { country, city, lat, lon } = response;
-    //     console.log(country, city, lat, lon);
-    //     //	const {response} = useHttp('https://api.openweathermap.org/data/2.5/weather?lat=50.4501&lon=30.5234&APPID=b25cb1dac8465227f4d2f1bdc6e9a5c7');
-    // }
-
-    const FetchData = async () => {
-        // //	const city = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${encodedLocation2}&lang=ua&units=metric&APPID=b25cb1dac8465227f4d2f1bdc6e9a5c7`);
-        // const city = await fetch(
-        //     `https://api.openweathermap.org/data/2.5/weather?lat=50.4501&lon=30.5234&APPID=b25cb1dac8465227f4d2f1bdc6e9a5c7`,
-        // );
-        // const dataJson = await city.json();
-        // setData(dataJson);
-        setAddress('');
-    };
-
-    console.log(coordinates, 'coordinates');
-    console.log(data);
 
     const searchOptions = {
         types: ['(cities)'],
@@ -46,16 +24,13 @@ export const GooglePlacesAutocomplete = () => {
             const results = await geocodeByAddress(value);
             const latLng = await getLatLng(results[0]);
             setAddress(value);
-            setCoordinates(latLng);
-            console.log(results, 'results');
-            console.log(value, 'value');
-            FetchData();
+            dispatch(getDefaultUsersWeatherByIp(latLng.lat, latLng.lng, value));
             setAddress('');
         } catch (error) {
             console.log(error, 'error');
         }
     };
-
+    console.log(address,'address');
     return (
         <PlacesAutocomplete
             value={address}
