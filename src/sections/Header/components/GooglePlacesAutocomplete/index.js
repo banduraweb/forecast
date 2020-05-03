@@ -4,7 +4,7 @@ import PlacesAutocomplete, {
     getLatLng,
 } from 'react-places-autocomplete';
 import { getDefaultUsersWeatherByIp } from '../../../../store/actions';
-import {MostViewedPlaces} from '../../components'
+import { MostViewedPlaces } from '../../components';
 import { EnvironmentOutlined } from '@ant-design/icons';
 import { Input } from 'antd';
 import { useDispatch } from 'react-redux';
@@ -53,7 +53,7 @@ export const GooglePlacesAutocomplete = () => {
                         className="app-header__search-input"
                         {...getInputProps({ placeholder: 'Type address' })}
                     />
-                        <MostViewedPlaces/>
+                    <MostViewedPlaces />
                     <div style={{ zIndex: '1000', fontSize: '12px' }}>
                         {loading ? <div>...loading</div> : null}
 

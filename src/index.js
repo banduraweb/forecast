@@ -4,12 +4,7 @@ import { render } from 'react-dom';
 import { Provider } from 'react-redux';
 import './styles/index.css';
 import { Layout, Affix } from 'antd';
-import {
-    AppHeader,
-    Home,
-    NotFound,
-    MonthForecast,
-} from './sections';
+import { AppHeader, Home, NotFound, MonthForecast } from './sections';
 import { HashRouter as Router, Route, Switch } from 'react-router-dom';
 import { store } from '../src/store/store';
 

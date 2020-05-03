@@ -23,7 +23,7 @@ export const MonthForecast = () => {
 
     const monthForecast = userIpInfo ? (
         <>
-          <h1 style={{float: "right"}}>Month Forecast</h1>
+            <h1 style={{ float: 'right' }}>Month Forecast</h1>
             <TodayWeather
                 city={userIpInfo.city}
                 currentWeather={userIpInfo.condition_current}
