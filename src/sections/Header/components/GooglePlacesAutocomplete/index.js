@@ -30,7 +30,7 @@ export const GooglePlacesAutocomplete = () => {
             console.log(error, 'error');
         }
     };
-    console.log(address,'address');
+    console.log(address, 'address');
     return (
         <PlacesAutocomplete
             value={address}

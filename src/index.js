@@ -9,7 +9,7 @@ import {
     Home,
     NotFound,
     AdditionalForecastInfo,
-    Login,
+    MonthForecast,
 } from './sections';
 import { HashRouter as Router, Route, Switch } from 'react-router-dom';
 import { store } from '../src/store/store';
@@ -17,7 +17,7 @@ import { store } from '../src/store/store';
 const App = () => {
     return (
         <Router>
-            <Layout id="app" >
+            <Layout id="app">
                 <Affix offsetTop={0} className="app__affix-header">
                     <AppHeader />
                 </Affix>
@@ -28,7 +28,7 @@ const App = () => {
                         path="/more-info"
                         component={AdditionalForecastInfo}
                     />
-                    <Route exact path="/login" component={Login} />
+                    <Route exact path="/month-forecast" component={MonthForecast} />
                     <Route component={NotFound} />
                 </Switch>
             </Layout>

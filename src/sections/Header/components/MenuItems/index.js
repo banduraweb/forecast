@@ -8,8 +8,8 @@ export const MenuItems = () => {
     return (
         <Menu mode="horizontal" selectable={false} className="menu">
             <Item>
-                <Link to="/login">
-                    <Button type="primary">Sign In</Button>
+                <Link to="/month-forecast">
+                    <Button type="primary">Get Month Forecast</Button>
                 </Link>
             </Item>
         </Menu>
