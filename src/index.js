@@ -8,7 +8,6 @@ import {
     AppHeader,
     Home,
     NotFound,
-    AdditionalForecastInfo,
     MonthForecast,
 } from './sections';
 import { HashRouter as Router, Route, Switch } from 'react-router-dom';
@@ -23,11 +22,6 @@ const App = () => {
                 </Affix>
                 <Switch>
                     <Route exact path="/" component={Home} />
-                    <Route
-                        exact
-                        path="/more-info"
-                        component={AdditionalForecastInfo}
-                    />
                     <Route
                         exact
                         path="/month-forecast"
