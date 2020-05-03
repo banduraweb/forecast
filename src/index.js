@@ -28,7 +28,11 @@ const App = () => {
                         path="/more-info"
                         component={AdditionalForecastInfo}
                     />
-                    <Route exact path="/month-forecast" component={MonthForecast} />
+                    <Route
+                        exact
+                        path="/month-forecast"
+                        component={MonthForecast}
+                    />
                     <Route component={NotFound} />
                 </Switch>
             </Layout>
