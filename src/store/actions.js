@@ -1,5 +1,10 @@
 import axios from 'axios';
-import { apiKey, apiBaseUrl, apiCurentLocation } from '../lib/api';
+import {
+    apiKey,
+    apiBaseUrl,
+    apiCurentLocation,
+    apiCurentLocationHttps,
+} from '../lib/api';
 import { responseParser } from '../lib/utils';
 
 export const actionsTypes = {
@@ -23,20 +28,22 @@ export const setResponseError = () => ({
 });
 
 export const getUsersForecast = (lat, lon, city) => async (dispatch) => {
+    let x = lat;
+    let y = lon;
+    let city = city;
     if (!lat || !lon || !city) {
-      //  const userLocation = await axios.get(`${apiCurentLocation}`);
-      //   lat = userLocation.data.lat;
-      //   lon = userLocation.data.lon;
-      //   city = userLocation.data.city;
-        lat = 50.4543;
-        lon = 30.5251;
-        city = "Kyiv";
-        // console.log(lat, lon);
-        // 50.4543 30.5251
+        const userLocation = await axios.get(`${apiCurentLocationHttps}`);
+
+        const { loc } = userLocation.data;
+        const { region } = userLocation.data;
+        const [a, b] = loc.split(',');
+        x = a;
+        y = b;
+        city = region.split(' ')[0];
     }
     try {
         const userWeather = await axios.get(
-            `${apiBaseUrl}/weather.ashx?q=${lat},${lon}&format=json&num_of_days=30&key=${apiKey}`,
+            `${apiBaseUrl}/weather.ashx?q=${x},${y}&format=json&num_of_days=30&key=${apiKey}`,
         );
         const { data } = userWeather.data;
 
@@ -49,6 +56,7 @@ export const getUsersForecast = (lat, lon, city) => async (dispatch) => {
             request,
             weather,
         );
+
         dispatch(saveUserForecast(preparedData));
     } catch (e) {
         dispatch(setResponseError());

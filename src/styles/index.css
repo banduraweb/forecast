@@ -116,12 +116,10 @@ html {
         left: 0;
         width: 100%;
         height: fit-content;
-
     }
 
     .listing-weather {
         position: relative;
-        top: 200px
+        top: 200px;
     }
-
 }
