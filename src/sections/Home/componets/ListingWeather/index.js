@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { PageSkeleton } from '../../../../components';
 import { List } from 'antd';
-import { getDefaultUsersWeatherByIp } from '../../../../store/actions';
+import { getUsersForecast } from '../../../../store/actions';
 import {
     ListingWeatherCard,
     TodayWeather,
@@ -10,14 +10,14 @@ import {
 } from '../../../../components';
 
 export const ListingWeather = () => {
-    const userIpInfo = useSelector((state) => state.userIpInfo);
+    const userIpInfo = useSelector((state) => state.usersQueriedForecast);
 
     const dispatch = useDispatch();
     useEffect(() => {
         if (!userIpInfo) {
-            dispatch(getDefaultUsersWeatherByIp());
+            dispatch(getUsersForecast());
         }
-    }, []);
+    }, [dispatch]);
 
     const listingWeather = userIpInfo ? (
         <>

@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Card, Typography, Avatar, Tag } from 'antd';
 
 const { Title, Paragraph } = Typography;
@@ -13,7 +14,6 @@ export const ListingWeatherCard = ({ card }) => {
         sunHour,
         hourly,
     } = card;
-
     const { weatherIconUrl, weatherDesc } = hourly[3];
     const [icon] = weatherIconUrl;
     const [desc] = weatherDesc;
@@ -51,4 +51,70 @@ export const ListingWeatherCard = ({ card }) => {
             </div>
         </Card>
     );
+};
+ListingWeatherCard.propTypes = {
+    card: PropTypes.shape({
+        hourly: PropTypes.arrayOf(
+            PropTypes.shape({
+                DewPointC: PropTypes.string.isRequired,
+                DewPointF: PropTypes.string.isRequired,
+                FeelsLikeC: PropTypes.string.isRequired,
+                FeelsLikeF: PropTypes.string.isRequired,
+                HeatIndexC: PropTypes.string.isRequired,
+                HeatIndexF: PropTypes.string.isRequired,
+                WindChillC: PropTypes.string.isRequired,
+                WindChillF: PropTypes.string.isRequired,
+                WindGustKmph: PropTypes.string.isRequired,
+                WindGustMiles: PropTypes.string.isRequired,
+                chanceoffog: PropTypes.string.isRequired,
+                chanceoffrost: PropTypes.string.isRequired,
+                chanceofhightemp: PropTypes.string.isRequired,
+                chanceofovercast: PropTypes.string.isRequired,
+                chanceofrain: PropTypes.string.isRequired,
+                chanceofremdry: PropTypes.string.isRequired,
+                chanceofsnow: PropTypes.string.isRequired,
+                chanceofsunshine: PropTypes.string.isRequired,
+                chanceofthunder: PropTypes.string.isRequired,
+                chanceofwindy: PropTypes.string.isRequired,
+                cloudcover: PropTypes.string.isRequired,
+                humidity: PropTypes.string.isRequired,
+                precipInches: PropTypes.string.isRequired,
+                precipMM: PropTypes.string.isRequired,
+                pressure: PropTypes.string.isRequired,
+                pressureInches: PropTypes.string.isRequired,
+                tempC: PropTypes.string.isRequired,
+                tempF: PropTypes.string.isRequired,
+                time: PropTypes.string.isRequired,
+                uvIndex: PropTypes.string.isRequired,
+                visibility: PropTypes.string.isRequired,
+                visibilityMiles: PropTypes.string.isRequired,
+                weatherCode: PropTypes.string.isRequired,
+                winddir16Point: PropTypes.string.isRequired,
+                winddirDegree: PropTypes.string.isRequired,
+                windspeedKmph: PropTypes.string.isRequired,
+                windspeedMiles: PropTypes.string.isRequired,
+                weatherDesc: PropTypes.arrayOf(
+                    PropTypes.shape({
+                        value: PropTypes.string.isRequired,
+                    }),
+                ),
+                weatherIconUrl: PropTypes.arrayOf(
+                    PropTypes.shape({
+                        value: PropTypes.string.isRequired,
+                    }),
+                ),
+            }),
+        ).isRequired,
+        avgtempC: PropTypes.string,
+        date: PropTypes.string,
+        maxtempC: PropTypes.string,
+        mintempC: PropTypes.string,
+        sunHour: PropTypes.string,
+        astronomy: PropTypes.shape({
+            moonrise: PropTypes.string.isRequired,
+            moonset: PropTypes.string.isRequired,
+            sunrise: PropTypes.string.isRequired,
+            sunset: PropTypes.string.isRequired,
+        }).isRequired,
+    }).isRequired,
 };

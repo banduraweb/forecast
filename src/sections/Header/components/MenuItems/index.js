@@ -1,14 +1,11 @@
 import React from 'react';
-import { Link, useHistory, useLocation } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { Button, Menu } from 'antd';
 
 const { Item } = Menu;
 
 export const MenuItems = () => {
-    const history = useHistory();
     const location = useLocation();
-    console.log(history, 'history');
-    console.log(location.pathname, 'location');
     return (
         <Menu mode="horizontal" selectable={false} className="menu">
             <Item>

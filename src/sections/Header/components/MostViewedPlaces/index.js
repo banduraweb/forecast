@@ -1,16 +1,26 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { getDefaultUsersWeatherByIp } from '../../../../store/actions';
+import { getUsersForecast } from '../../../../store/actions';
 import { Tag } from 'antd';
 
 export const MostViewedPlaces = () => {
+    const userHistorySearch = useSelector((state) => state.userHistorySearch);
+    const dispatch = useDispatch();
     return (
-        <span className="history-items">
-            <Tag color="success">Kyiv</Tag>
-            <Tag color="success">Toronto</Tag>
-            <Tag color="success">Lviv</Tag>
-            <Tag color="success">Vinn</Tag>
-            <Tag color="success">New York</Tag>
-        </span>
+        <div className="history-items">
+            {!!userHistorySearch.length &&
+                userHistorySearch.map(({ lat, lng, value }) => (
+                    <Tag
+                        key={lat - lng}
+                        style={{ cursor: 'pointer' }}
+                        onClick={() =>
+                            dispatch(getUsersForecast(lat, lng, value))
+                        }
+                        color="success"
+                    >
+                        {value.split(/,|-/).splice(0, 1).join('')}
+                    </Tag>
+                ))}
+        </div>
     );
 };

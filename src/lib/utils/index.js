@@ -102,3 +102,7 @@ export const prepareDataForCharts = (array) => {
 
     return readyData;
 };
+
+export const validator = (query) => {
+    return query && query.replace(/[0-9~!@#$%^&*()_+`]/g, '').trim();
+};

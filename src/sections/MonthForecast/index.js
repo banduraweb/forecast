@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { getDefaultUsersWeatherByIp } from '../../store/actions';
+import { getUsersForecast } from '../../store/actions';
 import {
     PageSkeleton,
     ListingWeatherCard,
@@ -9,17 +9,15 @@ import {
 import { List } from 'antd';
 
 export const MonthForecast = () => {
-    const userIpInfo = useSelector((state) => state.userIpInfo);
+    const userIpInfo = useSelector((state) => state.usersQueriedForecast);
     const dispatch = useDispatch();
     const [page, setListingsPage] = useState(1);
 
-    console.log(userIpInfo, 'userIpInfo');
-
     useEffect(() => {
         if (!userIpInfo) {
-            dispatch(getDefaultUsersWeatherByIp());
+            dispatch(getUsersForecast());
         }
-    }, []);
+    }, [dispatch]);
 
     const monthForecast = userIpInfo ? (
         <>

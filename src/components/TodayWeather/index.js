@@ -1,5 +1,6 @@
 import { Avatar, Comment } from 'antd';
 import React from 'react';
+import PropTypes from 'prop-types';
 
 export const TodayWeather = ({ currentWeather, city }) => {
     const [current] = currentWeather;
@@ -28,4 +29,18 @@ export const TodayWeather = ({ currentWeather, city }) => {
             />
         </>
     );
+};
+
+TodayWeather.propTypes = {
+    city: PropTypes.string.isRequired,
+    currentWeather: PropTypes.arrayOf(
+        PropTypes.shape({
+            FeelsLikeC: PropTypes.string.isRequired,
+            desc: PropTypes.string.isRequired,
+            icon: PropTypes.string.isRequired,
+            temp_C: PropTypes.string.isRequired,
+            visibility: PropTypes.string.isRequired,
+            windspeedKmph: PropTypes.string.isRequired,
+        }),
+    ),
 };
