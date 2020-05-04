@@ -24,10 +24,15 @@ export const setResponseError = () => ({
 
 export const getUsersForecast = (lat, lon, city) => async (dispatch) => {
     if (!lat || !lon || !city) {
-        const userLocation = await axios.get(`${apiCurentLocation}`);
-        lat = userLocation.data.lat;
-        lon = userLocation.data.lon;
-        city = userLocation.data.city;
+      //  const userLocation = await axios.get(`${apiCurentLocation}`);
+      //   lat = userLocation.data.lat;
+      //   lon = userLocation.data.lon;
+      //   city = userLocation.data.city;
+        lat = 50.4543;
+        lon = 30.5251;
+        city = "Kyiv";
+        // console.log(lat, lon);
+        // 50.4543 30.5251
     }
     try {
         const userWeather = await axios.get(
