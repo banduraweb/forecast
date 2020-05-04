@@ -8,7 +8,7 @@ export const actionsTypes = {
     SET_RESPONSE_ERROR: 'SET_RESPONSE_ERROR',
 };
 
-export const saveUserLocation = (data) => ({
+export const saveUserForecast = (data) => ({
     type: actionsTypes.GET_USERS_FORECAST,
     payload: data,
 });
@@ -49,7 +49,7 @@ export const getUsersForecast = (lat, lon, city) => async (dispatch) => {
             request,
             weather,
         );
-        dispatch(saveUserLocation(preparedData));
+        dispatch(saveUserForecast(preparedData));
     } catch (e) {
         dispatch(setResponseError());
     }
