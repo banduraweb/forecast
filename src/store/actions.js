@@ -5,6 +5,7 @@ import { responseParser } from '../lib/utils';
 export const actionsTypes = {
     GET_USERS_FORECAST: 'GET_USERS_FORECAST',
     SET_USER_HISTORY_SEARCH: 'SET_USER_HISTORY_SEARCH',
+    SET_RESPONSE_ERROR: 'SET_RESPONSE_ERROR',
 };
 
 export const saveUserLocation = (data) => ({
@@ -17,6 +18,11 @@ export const setUserHistorySearch = (data) => ({
     payload: data,
 });
 
+export const setResponceError = () => ({
+    type: actionsTypes.SET_RESPONSE_ERROR,
+});
+
+
 export const getUsersForecast = (lat, lon, city) => async (dispatch) => {
     if (!lat || !lon || !city) {
         const userLocation = await axios.get(`${apiCurentLocation}`);
@@ -24,20 +30,25 @@ export const getUsersForecast = (lat, lon, city) => async (dispatch) => {
         lon = userLocation.data.lon;
         city = userLocation.data.city;
     }
+    try {
+        const userWeather = await axios.get(
+          `${apiBaseUrl}/weather.ashx?q=${lat},${lon}4&format=json&num_of_days=30&key=${apiKey}`,
+        );
+        const { data } = userWeather.data;
 
-    const userWeather = await axios.get(
-        `${apiBaseUrl}/weather.ashx?q=${lat},${lon}4&format=json&num_of_days=30&key=${apiKey}`,
-    );
-    const { data } = userWeather.data;
+        const { ClimateAverages, current_condition, request, weather } = data;
 
-    const { ClimateAverages, current_condition, request, weather } = data;
+        const preparedData = responseParser(
+          ClimateAverages,
+          city,
+          current_condition,
+          request,
+          weather,
+        );
+        dispatch(saveUserLocation(preparedData));
+    } catch (e) {
+        dispatch(setResponceError());
+        console.log(e,'f');
+    }
 
-    const preparedData = responseParser(
-        ClimateAverages,
-        city,
-        current_condition,
-        request,
-        weather,
-    );
-    dispatch(saveUserLocation(preparedData));
 };

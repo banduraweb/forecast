@@ -11,6 +11,16 @@ const loadUserLocation = (state = null, action) => {
     }
 };
 
+
+const responseError = (state = null, action) => {
+    switch (action.type) {
+        case actionsTypes.SET_RESPONSE_ERROR:
+            return true;
+        default:
+            return state;
+    }
+};
+
 const loadUserHistorySearch = (state = [], action) => {
     switch (action.type) {
         case actionsTypes.SET_USER_HISTORY_SEARCH:
@@ -35,4 +45,5 @@ const loadUserHistorySearch = (state = [], action) => {
 export const rootReducer = combineReducers({
     usersQueriedForecast: loadUserLocation,
     userHistorySearch: loadUserHistorySearch,
+    errorFetching: responseError,
 });
