@@ -28,10 +28,11 @@ export const setResponseError = () => ({
 });
 
 export const getUsersForecast = (lat, lon, city) => async (dispatch) => {
+    console.log({lat, lon, city});
     let x = lat;
     let y = lon;
-    let city = city;
-    if (!lat || !lon || !city) {
+    let town = city;
+    if (!lat || !lon || !town) {
         const userLocation = await axios.get(`${apiCurentLocationHttps}`);
 
         const { loc } = userLocation.data;
@@ -39,7 +40,7 @@ export const getUsersForecast = (lat, lon, city) => async (dispatch) => {
         const [a, b] = loc.split(',');
         x = a;
         y = b;
-        city = region.split(' ')[0];
+        town = region.split(' ')[0];
     }
     try {
         const userWeather = await axios.get(
@@ -51,7 +52,7 @@ export const getUsersForecast = (lat, lon, city) => async (dispatch) => {
 
         const preparedData = responseParser(
             ClimateAverages,
-            city,
+            town,
             current_condition,
             request,
             weather,
