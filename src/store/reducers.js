@@ -11,7 +11,6 @@ const loadUserLocation = (state = null, action) => {
     }
 };
 
-
 const responseError = (state = null, action) => {
     switch (action.type) {
         case actionsTypes.SET_RESPONSE_ERROR:

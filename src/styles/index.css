@@ -44,9 +44,6 @@ html {
     border: 0;
 }
 
-.app-header__menu-section {
-}
-
 .page-skeleton__paragraph {
     padding-bottom: 40px;
 }
@@ -87,4 +84,36 @@ html {
     top: 64px;
     right: 0;
     z-index: 99;
+}
+
+.not-found {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.not-found__description-title.ant-typography {
+    display: block;
+    padding-bottom: 10px;
+    color: #1d226c;
+    font-size: 22px;
+    font-weight: 700;
+}
+.not-found__description-subtitle.ant-typography {
+    color: #1d226c;
+    font-size: 16px;
+}
+.not-found__cta {
+    margin-top: 20px;
+}
+@media (max-width: 720px) {
+    .app-header {
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .listing-weather {
+        margin-top: 45px;
+    }
 }

@@ -1,5 +1,5 @@
 import axios from 'axios';
-import {apiKey, apiBaseUrl, apiCurentLocation} from '../lib/api'
+import { apiKey, apiBaseUrl, apiCurentLocation } from '../lib/api';
 import { responseParser } from '../lib/utils';
 
 export const actionsTypes = {
@@ -18,10 +18,9 @@ export const setUserHistorySearch = (data) => ({
     payload: data,
 });
 
-export const setResponceError = () => ({
+export const setResponseError = () => ({
     type: actionsTypes.SET_RESPONSE_ERROR,
 });
-
 
 export const getUsersForecast = (lat, lon, city) => async (dispatch) => {
     if (!lat || !lon || !city) {
@@ -32,23 +31,21 @@ export const getUsersForecast = (lat, lon, city) => async (dispatch) => {
     }
     try {
         const userWeather = await axios.get(
-          `${apiBaseUrl}/weather.ashx?q=${lat},${lon}4&format=json&num_of_days=30&key=${apiKey}`,
+            `${apiBaseUrl}/weather.ashx?q=${lat},${lon}&format=json&num_of_days=30&key=${apiKey}`,
         );
         const { data } = userWeather.data;
 
         const { ClimateAverages, current_condition, request, weather } = data;
 
         const preparedData = responseParser(
-          ClimateAverages,
-          city,
-          current_condition,
-          request,
-          weather,
+            ClimateAverages,
+            city,
+            current_condition,
+            request,
+            weather,
         );
         dispatch(saveUserLocation(preparedData));
     } catch (e) {
-        dispatch(setResponceError());
-        console.log(e,'f');
+        dispatch(setResponseError());
     }
-
 };

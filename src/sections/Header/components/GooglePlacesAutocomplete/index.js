@@ -50,9 +50,7 @@ export const GooglePlacesAutocomplete = () => {
                 onSelect={handleSelect}
                 searchOptions={searchOptions}
                 debounce={500}
-                onError={() => {
-                    console.log('error');
-                }}
+                onError={() => {}}
                 highlightFirstSuggestion={true}
                 style={{ background: 'red' }}
             >

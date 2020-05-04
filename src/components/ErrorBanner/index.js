@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Alert } from 'antd';
 
 export const ErrorBanner = ({
@@ -16,4 +17,9 @@ export const ErrorBanner = ({
             className="error-banner"
         />
     );
+};
+
+ErrorBanner.propTypes = {
+    message: PropTypes.string.isRequired,
+    description: PropTypes.string.isRequired,
 };

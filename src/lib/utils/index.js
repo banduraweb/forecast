@@ -7,6 +7,8 @@ export const responseParser = (
     current_condition,
     request,
     weather,
+    lat,
+    lon,
 ) => {
     const [yearTemp] = ClimateAverages;
     const { month } = yearTemp;
@@ -79,6 +81,8 @@ export const responseParser = (
         current_coordinates,
         weatherForecast,
         city,
+        lat,
+        lon,
     };
 };
 
