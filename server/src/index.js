@@ -1,24 +1,27 @@
-import { config } from 'dotenv';
+require('dotenv').config();
+
 import express from 'express';
+import cookieParser from 'cookie-parser';
 import {
     ApolloServer,
     makeExecutableSchema,
 } from 'apollo-server-express';
-import cors from 'cors';
-import { resolvers, typeDefs } from './graphql';
+import { typeDefs, resolvers } from './graphql';
 import { connectDataBase } from './database';
-import cookieParser from 'cookie-parser';
-
-config();
+import cors from 'cors';
+const corsOptions = { credentials: true, origin: 'http://localhost:3001', };
 const app = express();
-app.use(cookieParser(process.env.SECRET_KEY));
-app.use(cors());
+//app.use(cors());
+
 const port = process.env.PORT || 80;
 
 (async (app) => {
     try {
         const db = await connectDataBase();
         console.log('db connected');
+        app.use(
+            cookieParser(process.env.SECRET_KEY),
+        );
         const schema = makeExecutableSchema({
             typeDefs,
             resolvers,
@@ -31,6 +34,7 @@ const port = process.env.PORT || 80;
                 res,
             }),
         });
+        server.applyMiddleware({ app, cors: corsOptions });
         server.applyMiddleware({
             app,
             path: '/api',
@@ -38,11 +42,11 @@ const port = process.env.PORT || 80;
 
         app.listen(port, () => {
             console.log(
-                `Started..on.port.${port}`,
+                `[app]: localhost: ${port} started`,
             );
         });
     } catch (e) {
-        console.log('Server error', e.message);
+        console.log('server error');
         process.exit(1);
     }
 })(app);

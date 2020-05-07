@@ -1,12 +1,21 @@
 import React from 'react';
 import 'babel-polyfill';
 import { render } from 'react-dom';
+import ApolloClient from "apollo-boost";
+import { ApolloProvider, useMutation } from "@apollo/react-hooks";
 import { Provider } from 'react-redux';
 import './styles/index.css';
 import { Layout, Affix } from 'antd';
 import { AppHeader, Home, NotFound, MonthForecast } from './sections';
-import { HashRouter as Router, Route, Switch } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import { store } from '../src/store/store';
+
+
+const client = new ApolloClient({
+    uri: "/api",
+});
+
+
 
 const App = () => {
     return (
@@ -30,8 +39,10 @@ const App = () => {
 };
 
 render(
+  <ApolloProvider client={client}>
     <Provider store={store}>
         <App />
-    </Provider>,
+    </Provider>
+  </ApolloProvider>,
     document.getElementById('root'),
 );
