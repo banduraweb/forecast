@@ -65,9 +65,6 @@ const logInViaGoogle = async (code, token, db, res) => {
             name: userName,
             avatar: userAvatar,
             contact: userEmail,
-            income: 0,
-            bookings: [],
-            listings: [],
         });
         test = insertResult.ops[0];
     }
@@ -123,7 +120,6 @@ export const viewerResolvers = {
                     _id: test._id,
                     token: test.token,
                     avatar: test.avatar,
-                    walletId: test.walletId,
                     didRequest: true,
                 };
             } catch (e) {

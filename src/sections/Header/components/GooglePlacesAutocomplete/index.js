@@ -49,7 +49,7 @@ export const GooglePlacesAutocomplete = () => {
                 onChange={setAddress}
                 onSelect={handleSelect}
                 searchOptions={searchOptions}
-                debounce={500}
+                // debounce={500}
                 onError={() => {}}
                 highlightFirstSuggestion={true}
                 style={{ background: 'red' }}
