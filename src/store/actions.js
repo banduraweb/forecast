@@ -28,7 +28,6 @@ export const setResponseError = () => ({
 });
 
 export const getUsersForecast = (lat, lon, city) => async (dispatch) => {
-    console.log({lat, lon, city});
     let x = lat;
     let y = lon;
     let town = city;

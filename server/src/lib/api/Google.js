@@ -17,9 +17,7 @@ export const Google = {
         ],
     }),
     logIn: async (code) => {
-        const { tokens } = await auth.getToken(
-            code,
-        );
+        const { tokens } = await auth.getToken(code);
 
         auth.setCredentials(tokens);
 
@@ -27,8 +25,7 @@ export const Google = {
             .people({ version: 'v1', auth })
             .people.get({
                 resourceName: 'people/me',
-                personFields:
-                    'emailAddresses,names,photos',
+                personFields: 'emailAddresses,names,photos',
             });
         return { user: data };
     },

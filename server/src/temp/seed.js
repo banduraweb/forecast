@@ -24,14 +24,9 @@ import { connectDataBase } from '../database';
             },
         ];
 
-        places.forEach(
-            async (place) =>
-                await db.data.insertOne(place),
-        );
+        places.forEach(async (place) => await db.data.insertOne(place));
         console.log('[seed] success!');
     } catch {
-        throw new Error(
-            'failed to seed database',
-        );
+        throw new Error('failed to seed database');
     }
 })();

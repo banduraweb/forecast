@@ -1,13 +1,12 @@
-import { gql } from "apollo-boost";
+import { gql } from 'apollo-boost';
 
 export const LOG_OUT = gql`
-  mutation LogOut {
-    logOut {
-      id
-      token
-      avatar
-      hasWallet
-      didRequest
+    mutation LogOut {
+        logOut {
+            id
+            token
+            avatar
+            didRequest
+        }
     }
-  }
 `;

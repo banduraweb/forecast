@@ -5,41 +5,25 @@ const cookieOptions = {
     httpOnly: true,
     sameSite: true,
     signed: true,
-    secure:
-        process.env.NODE_ENV === 'development'
-            ? false
-            : true,
+    secure: process.env.NODE_ENV === 'development' ? false : true,
 };
 
-const logInViaGoogle = async (
-    code,
-    token,
-    db,
-    res,
-) => {
+const logInViaGoogle = async (code, token, db, res) => {
     const { user } = await Google.logIn(code);
 
     if (!user) {
         throw new Error('Google login error');
     }
 
-    const userNamesList =
-        user.names && user.names.length
-            ? user.names
-            : null;
+    const userNamesList = user.names && user.names.length ? user.names : null;
     const userPhotosList =
-        user.photos && user.photos.length
-            ? user.photos
-            : null;
+        user.photos && user.photos.length ? user.photos : null;
     const userEmailsList =
-        user.emailAddresses &&
-        user.emailAddresses.length
+        user.emailAddresses && user.emailAddresses.length
             ? user.emailAddresses
             : null;
 
-    const userName = userNamesList
-        ? userNamesList[0].displayName
-        : null;
+    const userName = userNamesList ? userNamesList[0].displayName : null;
 
     const userId =
         userNamesList &&
@@ -49,21 +33,14 @@ const logInViaGoogle = async (
             : null;
 
     const userAvatar =
-        userPhotosList && userPhotosList[0].url
-            ? userPhotosList[0].url
-            : null;
+        userPhotosList && userPhotosList[0].url ? userPhotosList[0].url : null;
 
     const userEmail =
         userEmailsList && userEmailsList[0].value
             ? userEmailsList[0].value
             : null;
 
-    if (
-        !userName ||
-        !userId ||
-        !userAvatar ||
-        !userEmail
-    ) {
+    if (!userName || !userId || !userAvatar || !userEmail) {
         throw new Error(`Google login error`);
     }
 
@@ -82,18 +59,16 @@ const logInViaGoogle = async (
     let test = updateRes.value;
 
     if (!test) {
-        const insertResult = await db.users.insertOne(
-            {
-                _id: userId,
-                token,
-                name: userName,
-                avatar: userAvatar,
-                contact: userEmail,
-                income: 0,
-                bookings: [],
-                listings: [],
-            },
-        );
+        const insertResult = await db.users.insertOne({
+            _id: userId,
+            token,
+            name: userName,
+            avatar: userAvatar,
+            contact: userEmail,
+            income: 0,
+            bookings: [],
+            listings: [],
+        });
         test = insertResult.ops[0];
     }
 
@@ -104,12 +79,7 @@ const logInViaGoogle = async (
     return test;
 };
 
-const logInViaCookies = async (
-    token,
-    db,
-    req,
-    res,
-) => {
+const logInViaCookies = async (token, db, req, res) => {
     const updateRes = await db.users.findOneAndUpdate(
         { _id: req.signedCookies.test },
         { $set: { token } },
@@ -131,39 +101,19 @@ export const viewerResolvers = {
             try {
                 return Google.authUrl;
             } catch (e) {
-                throw new Error(
-                    `Failed to query Google Auth Url: ${e}`,
-                );
+                throw new Error(`Failed to query Google Auth Url: ${e}`);
             }
         },
     },
     Mutation: {
-        logIn: async (
-            _root,
-            { input },
-            { db, req, res },
-        ) => {
+        logIn: async (_root, { input }, { db, req, res }) => {
             try {
-                const code = input
-                    ? input.code
-                    : null;
-                const token = crypto
-                    .randomBytes(16)
-                    .toString('hex');
+                const code = input ? input.code : null;
+                const token = crypto.randomBytes(16).toString('hex');
 
                 const test = code
-                    ? await logInViaGoogle(
-                          code,
-                          token,
-                          db,
-                          res,
-                      )
-                    : await logInViaCookies(
-                          token,
-                          db,
-                          req,
-                          res,
-                      );
+                    ? await logInViaGoogle(code, token, db, res)
+                    : await logInViaCookies(token, db, req, res);
 
                 if (!test) {
                     return { didRequest: true };
@@ -177,22 +127,15 @@ export const viewerResolvers = {
                     didRequest: true,
                 };
             } catch (e) {
-                throw new Error(
-                    `Failed to logIn: ${e}`,
-                );
+                throw new Error(`Failed to logIn: ${e}`);
             }
         },
         logOut: (_root, _args, { res }) => {
             try {
-                res.clearCookie(
-                    'test',
-                    cookieOptions,
-                );
+                res.clearCookie('test', cookieOptions);
                 return { didRequest: true };
             } catch (e) {
-                throw new Error(
-                    `Failed to logOut: ${e}`,
-                );
+                throw new Error(`Failed to logOut: ${e}`);
             }
         },
     },

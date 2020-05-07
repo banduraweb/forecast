@@ -1,3 +1,5 @@
+import { message, notification } from 'antd';
+
 const ConvertTempFromFtoC = (temp) =>
     (((Number(temp) - 32) * 5) / 9).toFixed(1);
 
@@ -109,4 +111,19 @@ export const prepareDataForCharts = (array) => {
 
 export const validator = (query) => {
     return query && query.replace(/[0-9~!@#$%^&*()_+`]/g, '').trim();
+};
+
+export const displaySuccessNotification = (message, description) => {
+    return notification['success']({
+        message,
+        description,
+        placement: 'topLeft',
+        style: {
+            marginTop: 50,
+        },
+    });
+};
+
+export const displayErrorMessage = (error) => {
+    return message.error(error);
 };

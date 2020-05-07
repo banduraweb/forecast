@@ -6,7 +6,7 @@ import { Tag } from 'antd';
 export const MostViewedPlaces = () => {
     const userHistorySearch = useSelector((state) => state.userHistorySearch);
     const dispatch = useDispatch();
-    console.log(userHistorySearch,'userHistorySearch');
+    console.log(userHistorySearch, 'userHistorySearch');
     return (
         <div className="history-items">
             {!!userHistorySearch.length &&
