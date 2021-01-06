@@ -35,7 +35,7 @@
     "antd": "^4.2.0",
     "apollo-boost": "^0.4.7",
     "apollo-cache-inmemory": "^1.6.5",
-    "axios": "^0.19.2",
+    "axios": "^0.21.1",
     "babel-plugin-transform-regenerator": "^6.26.0",
     "babel-polyfill": "^6.26.0",
     "babel-preset-env": "^1.7.0",
